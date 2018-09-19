@@ -34,17 +34,36 @@ export default {
 <style lang="less">
 .home {
     height: 100%;
+    padding: 20px 0;
     .form-container {
         width: 40%;
-        margin: 20px auto;
+        margin: 0px auto;
         border: 1px solid #ddd;
         border-radius: 5px;
+        background: #fff;
+        h2 {
+            font-size: 16px;
+            text-align: left;
+            padding-left: 10px;
+            font-weight: normal;
+            line-height: 30px;
+            color: #fff;
+            background: #66b1ff;
+        }
+        .form-content {
+            min-height: 450px;
+        }
+        .form-footer {
+            padding-bottom: 20px;
+        }
     }
     .right-panel {
-        position: absolute;
+        position: fixed;
         top: 20px;
         right: 10px;
         width: 20%;
+        height: 100%;
+        background: #fff;
     }
 }
 </style>

@@ -26,5 +26,24 @@ export default {
 </script>
 
 <style lang="less">
-
+.form-edit {
+    h4 {
+        font-size: 14px;
+        line-height: 25px;
+        background: #66b1ff;
+        color: #fff;
+        padding-left: 10px;
+        text-align: left;
+        font-weight: normal;
+    }
+    .component-list {
+        column-count: 2;
+        column-fill: balance;
+        column-gap: 0;
+        padding: 30px 30px 10px;
+        .el-button {
+            margin: 0 0 20px 0;
+        }
+    }
+}
 </style>
