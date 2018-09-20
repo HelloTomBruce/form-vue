@@ -1,16 +1,20 @@
 <template>
-    <div class="radio-container">
+    <div class="select-container">
         <label class="field-label">{{field.label}}</label>
-        <label class="field-desc">{{field.desc}}</label>
-        <div class="radio-group" v-for="(option, index) in field.options" :key="index">
-            <el-radio :name="field.name" v-model="fieldValue" :label="option.value">{{option.label}}</el-radio>
-        </div>
+        <el-select :name="field.name" v-model="fieldValue" placeholder="请选择">
+            <el-option
+                v-for="item in field.options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+        </el-select>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'field-radio',
+    name: 'field-select',
     data () {
         return {
             fieldValue: ''
@@ -26,7 +30,7 @@ export default {
 </script>
 
 <style lang="less">
-.radio-container {
+.select-container {
     label {
         display: block;
         &.field-label {
@@ -37,10 +41,6 @@ export default {
             font-size: 12px;
             line-height: 20px;
         }
-    }
-    .radio-group {
-        display: inline-block;
-        padding-right: 20px;
     }
 }
 </style>

@@ -2,7 +2,7 @@
     <div class="form-edit">
         <h4>添加字段</h4>
         <div class="component-list">
-            <el-button v-for="(item, id) in componentList" :key="id">{{item.type}}</el-button>
+            <el-button @click="addField(item.id)" v-for="(item, id) in componentList" :key="id">{{item.type}}</el-button>
         </div>
         <h4>编辑字段</h4>
         <div class="component-edit">
@@ -21,6 +21,11 @@ export default {
     },
     created () {
         this.componentList = COMPONENTLIST
+    },
+    methods: {
+        addField (id) {
+            this.$store.commit('addField', id)
+        }
     }
 }
 </script>
@@ -43,6 +48,7 @@ export default {
         padding: 30px 30px 10px;
         .el-button {
             margin: 0 0 20px 0;
+            width: 100px;
         }
     }
 }
