@@ -6,7 +6,7 @@
             </header>
             <div class="form-content">
                 <field-title title="个人登记表单"/>
-                <div class="field-one" v-for="(field, index) in FORM" :key="index">
+                <div class="field-one" v-for="(field, index) in FORM" :key="index" @click="editField(index)">
                     <component :is="field.id | getField" :field=field />
                 </div>
             </div>
@@ -72,6 +72,11 @@ export default {
     },
     mounted () {
         this.formData = this.$store.state.FORM
+    },
+    methods: {
+        editField (index) {
+            this.$store.commit('editField', index)
+        }
     }
 }
 </script>
@@ -118,6 +123,7 @@ export default {
         width: 20%;
         height: 100%;
         background: #fff;
+        overflow: auto;
     }
 }
 </style>

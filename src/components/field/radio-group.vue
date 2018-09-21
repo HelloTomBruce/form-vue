@@ -1,16 +1,48 @@
 <template>
-    <div class="radio-group-container">
-        <label class="field-label">{{field.label}}</label>
-        <div class="group-table">
-            <div class="row header">
-                <span></span>
-                <span v-for="(option, index) in field.options" :key="index">{{option.label}}</span>
+    <div>
+        <div class="radio-group-container" v-if="!edit">
+            <label class="field-label">{{field.label}}</label>
+            <div class="group-table">
+                <div class="row header">
+                    <span></span>
+                    <span v-for="(option, index) in field.options" :key="index">{{option.label}}</span>
+                </div>
+                <div class="row body" v-for="(row, index) in field.rows" :key="index">
+                    <span>{{row.label}}</span>
+                    <span v-for="(option, index2) in field.options" :key="index2">
+                        <el-radio :name="row.name" v-model=fieldValue[index] :label="option.value"></el-radio>
+                    </span>
+                </div>
             </div>
-            <div class="row body" v-for="(row, index) in field.rows" :key="index">
-                <span>{{row.label}}</span>
-                <span v-for="(option, index2) in field.options" :key="index2">
-                    <el-radio :name="row.name" v-model=fieldValue[index] :label="option.value"></el-radio>
-                </span>
+        </div>
+        <div class="edit-radio-group" v-else>
+            <div class="group">
+                <label class="field-label">标题：</label>
+                <el-input v-model="field.label" size="small"/>
+            </div>
+            <div class="option-one" v-for="(option, index) in field.options" :key="index">
+                <label class="option-label">选项标题：
+                    <span class="delete" @click="removeOption(index)">
+                        <i class="el-icon-close"></i>
+                    </span>
+                </label>
+                <el-input v-model="option.label" size="small"/>
+                <label class="option-value">选项值：</label>
+                <el-input v-model="option.value" size="small"/>
+            </div>
+            <div class="add-option">
+                <el-button type="primary" size="small" @click="addOption">增加选项</el-button>
+            </div>
+            <div class="option-one" v-for="(row, index) in field.rows" :key="index + 'row'">
+                <label class="option-label">问题：
+                    <span class="delete" @click="removeRow(index)">
+                        <i class="el-icon-close"></i>
+                    </span>
+                </label>
+                <el-input v-model="row.label" size="small"/>
+            </div>
+            <div class="add-option">
+                <el-button type="primary" size="small" @click="addRow">增加问题</el-button>
             </div>
         </div>
     </div>
@@ -31,6 +63,23 @@ export default {
         field: {
             type: Object,
             required: true
+        },
+        edit: {
+            type: Boolean
+        }
+    },
+    methods: {
+        addOption () {
+            this.$store.commit('addOption')
+        },
+        removeOption (index) {
+            this.$store.commit('removeOption', index)
+        },
+        addRow () {
+            this.$store.commit('addRow')
+        },
+        removeRow (index) {
+            this.$store.commit('removeRow', index)
         }
     }
 }
@@ -84,6 +133,28 @@ export default {
                 }
             }
         }
+    }
+}
+.edit-radio-group {
+     label {
+        display: block;
+        font-size: 14px;
+        line-height: 27px;
+        .delete {
+            float: right;
+            cursor: pointer;
+        }
+    }
+    .el-input__inner {
+        margin-bottom: 20px;
+    }
+    .add-option {
+        padding: 20px;
+        text-align: center;
+    }
+    .group, .option-one {
+        padding-top: 10px;
+        border-bottom: 1px solid #ddd;
     }
 }
 </style>

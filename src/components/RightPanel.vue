@@ -6,17 +6,59 @@
         </div>
         <h4>编辑字段</h4>
         <div class="component-edit">
+            <component :is="CURRENTEDIT.id | getField" :field="CURRENTEDIT" :edit="true"/>
         </div>
     </div>
 </template>
 
 <script>
 import { COMPONENTLIST } from '../util/dictionary.js'
+import { mapState } from 'vuex'
+import RightPanel from './RightPanel.vue'
+import FieldInput from './field/input.vue'
+import GroupRadio from './field/radio-group.vue'
+import FieldRadio from './field/radio.vue'
+import FieldSelect from './field/select.vue'
 export default {
     name: 'RightPanel',
     data () {
         return {
             componentList: []
+        }
+    },
+    computed: {
+        ...mapState([
+            'CURRENTEDIT'
+        ])
+    },
+    components: {
+        RightPanel,
+        FieldInput,
+        GroupRadio,
+        FieldRadio,
+        FieldSelect
+    },
+    filters: {
+        getField (id) {
+            let fieldName = ''
+            switch (id) {
+                case '00001':
+                    fieldName = 'field-input'
+                    break
+                case '00002':
+                    fieldName = 'group-radio'
+                    break
+                case '00003':
+                    fieldName = 'field-radio'
+                    break
+                case '00004':
+                    fieldName = 'field-select'
+                    break
+                default:
+                    fieldName = 'field-select'
+            }
+            console.log(fieldName)
+            return fieldName
         }
     },
     created () {
@@ -50,6 +92,10 @@ export default {
             margin: 0 0 20px 0;
             width: 100px;
         }
+    }
+    .component-edit {
+        padding: 20px;
+        text-align: left;
     }
 }
 </style>
